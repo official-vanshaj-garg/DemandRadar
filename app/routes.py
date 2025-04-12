@@ -5,7 +5,8 @@ from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from werkzeug.utils import secure_filename
 import os
-from datetime import datetime
+from datetime import datetime,timedelta
+from bson import ObjectId
 
 # Configure upload folder
 UPLOAD_FOLDER = 'd:/DemandRadar/app/static/uploads'
@@ -18,7 +19,9 @@ def allowed_file(filename):
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    # Fetch reviews from MongoDB
+    reviews = list(db.feedback.find().sort('created_at', -1).limit(3))
+    return render_template('index.html', reviews=reviews)
 
 @app.route('/report-need', methods=['GET'])
 def report_need():
@@ -58,7 +61,44 @@ def business_dashboard():
 
 @app.route('/insights')
 def insights():
-    return render_template('insights.html')
+    # Get total submissions
+    total_submissions = db.user_needs.count_documents({})
+    
+    # Get submissions in last 24 hours
+    yesterday = datetime.utcnow() - timedelta(days=1)
+    recent_submissions = db.user_needs.count_documents({'submitted_at': {'$gte': yesterday}})
+    
+    # Get most requested service
+    top_service = db.user_needs.aggregate([
+        {'$group': {
+            '_id': {
+                'service': '$service_type',
+                'description': '$description'
+            },
+            'count': {'$sum': 1}
+        }},
+        {'$sort': {'count': -1}},
+        {'$limit': 1}
+    ])
+    
+    top_service = list(top_service)
+    most_requested = {
+        'service': 'No requests yet',
+        'count': 0,
+        'description': ''
+    }
+    
+    if top_service:
+        most_requested = {
+            'service': top_service[0]['_id']['service'],
+            'count': top_service[0]['count'],
+            'description': top_service[0]['_id']['description'][:50] + '...' if top_service[0]['_id']['description'] else ''
+        }
+    
+    return render_template('insights.html', 
+                         total_submissions=total_submissions,
+                         recent_submissions=recent_submissions,
+                         most_requested=most_requested)
 
 # Add email configuration
 SMTP_SERVER = "smtp.gmail.com"
@@ -123,4 +163,23 @@ def subscribe_newsletter():
             return jsonify({'success': False, 'message': 'Subscription saved but email failed'}), 500
             
     except Exception as e:
+        return jsonify({'success': False, 'message': str(e)}), 500
+
+
+@app.route('/submit-feedback', methods=['POST'])
+def submit_feedback():
+    try:
+        data = request.get_json()
+        feedback = {
+            'name': data.get('name'),
+            'rating': data.get('rating'),
+            'feedback': data.get('feedback'),
+            'created_at': datetime.utcnow()
+        }
+        
+        # Using db instead of mongo
+        db.feedback.insert_one(feedback)
+        return jsonify({'success': True, 'message': 'Feedback submitted successfully'}), 200
+    except Exception as e:
+        print('Error:', str(e))  # For debugging
         return jsonify({'success': False, 'message': str(e)}), 500

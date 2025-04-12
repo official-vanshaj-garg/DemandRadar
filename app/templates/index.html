@@ -4,7 +4,6 @@
 
 {% block content %}
 <section class="hero">
-    
     <div class="hero-container">
         <div class="hero-content">
             <h1>Missing services in your area?</h1>
@@ -13,18 +12,8 @@
             <p>Bridge the gap between citizen needs and business decisions.</p>
             <a href="{{ url_for('report_need') }}" class="btn-primary">Report a Need In Your Area</a>
         </div>
-        <div class="hero-map">
-            <div class="map-box">
-                <div class="map-bubble">
-                    <i class="fas fa-map-marker-alt"></i>
-                    <span>No-gym near me</span>
-                </div>
-                <div class="map-markers">
-                    <div class="marker marker-1"></div>
-                    <div class="marker marker-2"></div>
-                    <div class="marker marker-3"></div>
-                </div>
-            </div>
+        <div class="hero-image">
+            <img src="{{ url_for('static', filename='images/dashboard/logo.png') }}" alt="Dashboard Map Preview">
         </div>
     </div>
 </section>
@@ -123,10 +112,19 @@
             </div>
             
             <div class="map-section">
-                <div class="map-marker marker-blue" style="top: 30%; left: 40%;">18</div>
-                <div class="map-marker marker-green" style="top: 50%; left: 60%;">24</div>
-                
-                
+                <div class="map-preview">
+                    <img src="{{ url_for('static', filename='images/dashboard/map-bg.jpg') }}" alt="Dashboard Map Preview" class="preview-map">
+                    <div class="map-overlay">
+                        <div class="map-marker marker-high" style="top: 30%; left: 40%;">18</div>
+                        <div class="map-marker marker-medium" style="top: 50%; left: 60%;">24</div>
+                        <div class="map-marker marker-low" style="top: 40%; left: 50%;">12</div>
+                    </div>
+                </div>
+                <div class="map-legend">
+                    <div>🔴 High Demand (20+ requests)</div>
+                    <div>🟡 Medium Demand (10-20 requests)</div>
+                    <div>🔵 Low Demand (< 10 requests)</div>
+                </div>
             </div>
         </div>
     </div>

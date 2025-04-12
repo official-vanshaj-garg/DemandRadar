@@ -172,11 +172,7 @@ Add any others as needed (e.g., EMAIL_API_KEY if email features are used).
 
 ---
 
-## 📜 License
 
-This project is licensed under the **MIT License** – see the [LICENSE](LICENSE) file for details.
-
----
 
 ## 🙌 Contact
 

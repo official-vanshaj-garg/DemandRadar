@@ -1,0 +1,224 @@
+{% extends "base.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<section class="hero">
+    
+    <div class="hero-container">
+        <div class="hero-content">
+            <h1>Missing services in your area?</h1>
+            <h2>Let the world know.</h2>
+            <h2>Let businesses act.</h2>
+            <p>Bridge the gap between citizen needs and business decisions.</p>
+            <a href="{{ url_for('report_need') }}" class="btn-primary">Report a Need In Your Area</a>
+        </div>
+        <div class="hero-map">
+            <div class="map-box">
+                <div class="map-bubble">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>No-gym near me</span>
+                </div>
+                <div class="map-markers">
+                    <div class="marker marker-1"></div>
+                    <div class="marker marker-2"></div>
+                    <div class="marker marker-3"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="how-it-works">
+    <h2 class="section-title">How It Works</h2>
+    <div class="steps horizontal-layout">
+        <div class="step">
+            <div class="step-icon">
+                <img src="{{ url_for('static', filename='images/report.svg') }}" alt="Report">
+            </div>
+            <h3>Report a Missing Service</h3>
+            <p>Citizens tell us what they need (e.g. a gym, ATM facility)</p>
+        </div>
+        <div class="step">
+            <div class="step-icon">
+                <img src="{{ url_for('static', filename='images/analyze.svg') }}" alt="Analyze">
+            </div>
+            <h3>We Map & Analyze Needs</h3>
+            <p>Geo-tagged insights and insights are created</p>
+        </div>
+        <div class="step">
+            <div class="step-icon">
+                <img src="{{ url_for('static', filename='images/action.svg') }}" alt="Action">
+            </div>
+            <h3>Businesses Act on Real Demand</h3>
+            <p>Entrepreneurs access the dashboard to spot opportunities</p>
+        </div>
+    </div>
+</section>
+
+<section class="dashboard-preview">
+    <div class="dashboard-header">
+        <h2>Insights Dashboard Preview</h2>
+        <p>Businesses gain access to real-time data about community needs for strategic expansion decisions.</p>
+    </div>
+    
+    <div class="dashboard-container">
+        <div class="dashboard-ui">
+            <div class="dashboard-sidebar">
+                <div class="sidebar-header">
+                    <h3>DemandRadar Business Insights</h3>
+                </div>
+                
+                <div class="filters-section">
+                    <h4>Filters</h4>
+                    <div class="filter-group">
+                        <label class="filter-label">Service Category</label>
+                        <select class="filter-select">
+                            <option>All Categories</option>
+                            <option>Fitness Centers</option>
+                            <option>Coffee Shops</option>
+                            <option>Bakeries</option>
+                            <option>Child Care</option>
+                        </select>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <label class="filter-label">Distance (km)</label>
+                        <input type="range" min="0" max="50" value="5" class="distance-slider">
+                        <span>5 km</span>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <label class="filter-label">Request Frequency</label>
+                        <select class="filter-select">
+                            <option>High to Low</option>
+                            <option>Low to High</option>
+                        </select>
+                    </div>
+                    
+                    <button class="apply-filters">Apply Filters</button>
+                </div>
+                
+                <div class="popular-requests">
+                    <h4>Popular Requests</h4>
+                    <ul class="request-list">
+                        <li class="request-item">
+                            <span>Fitness Centers</span>
+                            <span class="request-count">78</span>
+                        </li>
+                        <li class="request-item">
+                            <span>Coffee Shops</span>
+                            <span class="request-count">65</span>
+                        </li>
+                        <li class="request-item">
+                            <span>Bakeries</span>
+                            <span class="request-count">54</span>
+                        </li>
+                        <li class="request-item">
+                            <span>Child Care</span>
+                            <span class="request-count">42</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="map-section">
+                <div class="map-marker marker-blue" style="top: 30%; left: 40%;">18</div>
+                <div class="map-marker marker-green" style="top: 50%; left: 60%;">24</div>
+                
+                
+            </div>
+        </div>
+    </div>
+    
+    <a href="{{ url_for('business_dashboard') }}" class="access-button">Get Access to Business Dashboard</a>
+</section>
+<section class="testimonials">
+    
+    <div class="testimonials-container">
+        <div class="testimonials-header">
+            <h2>You spoke, we listened</h2>
+            <p>We interviewed 25+ people – most lacked basic services nearby. Here's what they're saying about DemandRadar.</p>
+        </div>
+        <div class="testimonials-grid">
+            <div class="testimonial-card">
+                <div class="quote-icon">
+                    <i class="fas fa-quote-left"></i>
+                </div>
+                <p class="testimonial-text">"I've been asking for a gym in our neighborhood for years. Finally, someone is listening!"</p>
+                <div class="testimonial-author">
+                    <div class="author-avatar"></div>
+                    <div class="author-info">
+                        <h4>Sarah D.</h4>
+                        <p>Resident, Green Park</p>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-card">
+                <div class="quote-icon">
+                    <i class="fas fa-quote-left"></i>
+                </div>
+                <p class="testimonial-text">"We needed a bakery nearby. Within 3 months of reporting on DemandRadar, one opened up!"</p>
+                <div class="testimonial-author">
+                    <div class="author-avatar"></div>
+                    <div class="author-info">
+                        <h4>Raj K.</h4>
+                        <p>Student, University Area</p>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-card">
+                <div class="quote-icon">
+                    <i class="fas fa-quote-left"></i>
+                </div>
+                <p class="testimonial-text">"As a parent, finding no childcare options was frustrating. This platform helps us be heard."</p>
+                <div class="testimonial-author">
+                    <div class="author-avatar"></div>
+                    <div class="author-info">
+                        <h4>Emma T.</h4>
+                        <p>Parent, Westside Community</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Feedback Widget -->
+<div class="feedback-widget">
+    <div class="feedback-header">
+        <span>Share Your Experience</span>
+        <button class="close-btn" onclick="document.querySelector('.feedback-widget').style.display='none'">&times;</button>
+    </div>
+    <div class="feedback-body">
+        <label>How would you rate your experience?</label>
+        <div class="stars">
+            <i class="fas fa-star" onclick="rate(1)"></i>
+            <i class="fas fa-star" onclick="rate(2)"></i>
+            <i class="fas fa-star" onclick="rate(3)"></i>
+            <i class="fas fa-star" onclick="rate(4)"></i>
+            <i class="fas fa-star" onclick="rate(5)"></i>
+        </div>
+        <label>Tell us about your experience</label>
+        <textarea placeholder="How did DemandRadar help connect you with a new service in your area?"></textarea>
+        <label>Your Name</label>
+        <input type="text" placeholder="Enter your name" />
+        <button class="submit-btn">
+            <i class="fas fa-paper-plane"></i> Submit Review
+        </button>
+    </div>
+</div>
+
+<script>
+function rate(stars) {
+    const starEls = document.querySelectorAll('.stars i');
+    starEls.forEach((star, index) => {
+        if (index < stars) {
+            star.classList.add('active');
+        } else {
+            star.classList.remove('active');
+        }
+    });
+}
+</script>
+{% endblock %}

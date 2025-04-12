@@ -1,0 +1,141 @@
+{% extends "base.html" %}
+
+{% block title %}Community Insights{% endblock %}
+
+{% block content %}
+<div class="insights-page">
+    <div class="insights-container">
+        <!-- Refer a Friend Section -->
+        <section class="refer-section">
+            <h2>Help shape your neighborhood – refer a friend!</h2>
+            <p>Know someone who would love our service? Invite them to join our community.</p>
+            
+            <form id="referForm" class="refer-form">
+                <div class="input-group">
+                    <input type="email" id="friendEmail" name="friendEmail" placeholder="Enter friend's email" required>
+                    <button type="submit" class="btn-primary">Refer Now</button>
+                </div>
+            </form>
+            
+            <div class="share-options">
+                <p>Or Share via other apps</p>
+                <div class="share-buttons">
+                    <button id="copyLink" class="btn-share">
+                        <i class="fas fa-link"></i> Copy Link
+                    </button>
+                    <button id="shareWhatsapp" class="btn-share">
+                        <i class="fab fa-whatsapp"></i> WhatsApp
+                    </button>
+                    <button id="shareEmail" class="btn-share">
+                        <i class="fas fa-envelope"></i> Email
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Stay Updated Section -->
+        <section class="newsletter-section">
+            <h2>Stay Updated</h2>
+            <p>Subscribe to our newsletter for the latest insights and updates on neighborhood demands.</p>
+            
+            <form id="newsletterForm" class="newsletter-form">
+                <div class="input-group">
+                    <input type="email" id="subscriberEmail" name="subscriberEmail" placeholder="Enter your email" required>
+                    <button type="submit" class="btn-primary">Notify Me</button>
+                </div>
+            </form>
+        </section>
+
+        <!-- Community Stats Section -->
+        <section class="stats-section">
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-store"></i>
+                </div>
+                <div class="stat-content">
+                    <h3>23 people near RR Nagar, Bangalore also requested a Sweet Shop</h3>
+                    <p>Join your neighbors in shaping community services</p>
+                </div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <div class="stat-content">
+                    <h3>494 needs submitted in the last 24 hours</h3>
+                    <p>Our community is actively growing</p>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Refer Form Handler
+    const referForm = document.getElementById('referForm');
+    referForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const email = document.getElementById('friendEmail').value;
+        
+        try {
+            const response = await fetch('/send-referral', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ email })
+            });
+            
+            const data = await response.json();
+            if (data.success) {
+                alert('Referral sent successfully!');
+                referForm.reset();
+            }
+        } catch (error) {
+            alert('Error sending referral');
+        }
+    });
+
+    // Newsletter Form Handler
+    const newsletterForm = document.getElementById('newsletterForm');
+    newsletterForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const email = document.getElementById('subscriberEmail').value;
+        
+        try {
+            const response = await fetch('/subscribe-newsletter', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ email })
+            });
+            
+            const data = await response.json();
+            if (data.success) {
+                alert('Subscription successful!');
+                newsletterForm.reset();
+            }
+        } catch (error) {
+            alert('Error subscribing to newsletter');
+        }
+    });
+
+    // Share Functionality
+    document.getElementById('copyLink').addEventListener('click', () => {
+        navigator.clipboard.writeText(window.location.origin)
+            .then(() => alert('Link copied to clipboard!'));
+    });
+
+    document.getElementById('shareWhatsapp').addEventListener('click', () => {
+        window.open(`https://wa.me/?text=${encodeURIComponent('Check out DemandRadar: ' + window.location.origin)}`);
+    });
+
+    document.getElementById('shareEmail').addEventListener('click', () => {
+        window.location.href = `mailto:?subject=Check out DemandRadar&body=I thought you might be interested in this: ${window.location.origin}`;
+    });
+});
+</script>
+{% endblock %}

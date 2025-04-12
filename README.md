@@ -177,8 +177,8 @@ Add any others as needed (e.g., EMAIL_API_KEY if email features are used).
 ## 🙌 Contact
 
 **Jaineesh**  
-📧 your.email@example.com  
-🔗 [GitHub Repo](https://github.com/yourusername/DemandRadar)
+📧 jaineeshpatel73@gmail.com  
+🔗 [GitHub Repo](https://github.com/jaineeshx/DemandRadar)
 
 ---
 

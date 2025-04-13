@@ -103,8 +103,8 @@ def insights():
 # Add email configuration
 SMTP_SERVER = "smtp.gmail.com"
 SMTP_PORT = 587
-SMTP_USERNAME = "demandradar@gmail.com"  # Replace with your Gmail address
-SMTP_PASSWORD = "ktlc ftop wnbh moue"  # Replace with your App Password
+SMTP_USERNAME = "yourgmail.com"  # Replace with your Gmail address
+SMTP_PASSWORD = "app password"  # Replace with your App Password
 
 def send_email(to_email, subject, body):
     try:

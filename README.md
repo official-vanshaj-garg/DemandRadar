@@ -176,9 +176,9 @@ Add any others as needed (e.g., EMAIL_API_KEY if email features are used).
 
 ## 🙌 Contact
 
-**Jaineesh**  
-📧 jaineeshpatel73@gmail.com  
-🔗 [GitHub Repo](https://github.com/jaineeshx/DemandRadar)
+**Vanshaj**  
+📧 official.vanshaj.garg@gmail.com  
+🔗 [GitHub Repo](https://github.com/official-vanshaj-garg/DemandRadar)
 
 ---
 
